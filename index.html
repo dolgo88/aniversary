@@ -45,25 +45,25 @@ canvas{display:block;width:100%;border-radius:12px;box-shadow:0 0 40px rgba(255,
 
   <!-- MENU -->
   <!-- LANDSCAPE overlay controls: left thumb left edge, right thumb right edge -->
-  <div id="mc-land" style="display:none;position:absolute;bottom:0;left:0;width:100%;height:20%;z-index:5;pointer-events:none;">
+  <div id="mc-land" style="display:none;position:absolute;bottom:0;left:0;width:100%;height:22%;z-index:5;pointer-events:none;">
 
     <!-- LEFT THUMB: ◀ in far-left corner, ▶ beside it -->
-    <div style="position:absolute;left:6px;bottom:5px;display:flex;flex-direction:row;gap:5px;align-items:flex-end;pointer-events:all;">
-      <div class="cb" style="width:60px;height:60px;font-size:26px;background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.5)"
+    <div style="position:absolute;left:8px;bottom:6px;display:flex;flex-direction:row;gap:10px;align-items:flex-end;pointer-events:all;">
+      <div class="cb" style="width:66px;height:66px;font-size:28px;background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.5)"
            ontouchstart="keys.left=true" ontouchend="keys.left=false">◀</div>
-      <div class="cb" style="width:60px;height:60px;font-size:26px;background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.5)"
+      <div class="cb" style="width:66px;height:66px;font-size:28px;background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.5)"
            ontouchstart="keys.right=true" ontouchend="keys.right=false">▶</div>
     </div>
 
     <!-- RIGHT THUMB: jump in far-right corner, then actions to its left -->
-    <div style="position:absolute;right:6px;bottom:5px;display:flex;flex-direction:row;gap:5px;align-items:flex-end;pointer-events:all;">
+    <div style="position:absolute;right:8px;bottom:6px;display:flex;flex-direction:row;gap:10px;align-items:flex-end;pointer-events:all;">
       <!-- Action buttons stacked left of jump -->
-      <div style="display:flex;flex-direction:column;gap:4px;align-items:center;">
-        <div class="cb" style="font-size:12px;width:46px;height:46px" ontouchstart="throwCat()">🐱<span style="font-size:7px">lanzar</span></div>
-        <div class="cb" style="font-size:12px;width:46px;height:46px" ontouchstart="doShoot()">🍪<span style="font-size:7px">disparo</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px;align-items:center;">
+        <div class="cb" style="font-size:13px;width:51px;height:51px" ontouchstart="throwCat()">🐱<span style="font-size:8px">lanzar</span></div>
+        <div class="cb" style="font-size:13px;width:51px;height:51px" ontouchstart="doShoot()">🍪<span style="font-size:8px">disparo</span></div>
       </div>
       <!-- BIG JUMP button on the far right -->
-      <div class="cb jb" style="width:66px;height:66px;font-size:28px;background:rgba(255,220,60,.3);border-color:rgba(255,220,60,.7)"
+      <div class="cb jb" style="width:73px;height:73px;font-size:30px;background:rgba(255,220,60,.3);border-color:rgba(255,220,60,.7)"
            ontouchstart="doJump()" ontouchend="">↑</div>
     </div>
 
