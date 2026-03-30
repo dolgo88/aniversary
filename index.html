@@ -23,6 +23,15 @@ canvas{display:block;width:100%;border-radius:12px;box-shadow:0 0 40px rgba(255,
 .cb:active{background:rgba(255,255,255,.42);transform:scale(.91);}
 .jb{width:58px;height:58px;font-size:24px;background:rgba(255,220,60,.22);border-color:rgba(255,220,60,.6);}
 .gap50{width:50px;height:50px;}
+/* Landscape mode overrides */
+@media (orientation: landscape) and (max-height: 500px) {
+  body { flex-direction: row; padding: 2px; gap: 4px; }
+  #gc { max-width: none; flex: 1; height: 100vh; }
+  canvas { height: 100vh; width: auto; border-radius: 8px; }
+  #mc { flex-direction: column; justify-content: center; gap: 6px; padding: 2px 6px; width: auto; min-width: 80px; }
+  .lctrl { gap: 4px; }
+  .rctrl { gap: 4px; }
+}
 #pinchmsg,#libermsg,#pigmsg{display:none;position:absolute;top:36%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.88);border-radius:18px;padding:18px 28px;text-align:center;z-index:15;pointer-events:none;}
 #pinchmsg{border:3px solid #FF8C00;}
 #libermsg{border:3px solid #FFD700;}
@@ -39,6 +48,7 @@ canvas{display:block;width:100%;border-radius:12px;box-shadow:0 0 40px rgba(255,
     <p style="color:#FFD700;font-size:1em;margin-top:8px;text-align:center">¡Rescatá al Pinchón y ganá tu regalo! 🎁</p>
     <p style="color:#aaa;font-size:.75em;margin-top:8px">← → Mover &nbsp;·&nbsp; ↑ Saltar &nbsp;·&nbsp; X Disparar &nbsp;·&nbsp; C Lanzar gato</p>
     <button class="bb" onclick="startGame()">¡Jugar! 🎮</button>
+    <button class="bb" onclick="toggleLandscape()" id="btnLandscape" style="background:linear-gradient(135deg,#1a6ab5,#4CAF50);margin-top:6px;font-size:.9em;padding:9px 20px">📱 Modo horizontal</button>
   </div>
 
   <!-- GAME OVER -->
@@ -860,7 +870,7 @@ function drawBoy(bx,by,cx){
 
   // Speech bubble "Feliz cumple!" when player near
   if(nearPlayer){
-    const bubble_x=-85, bubble_y=-110, bw=90, bh=30;
+    const bubble_x=-110, bubble_y=-118, bw=120, bh=38;
     rr(bubble_x,bubble_y,bw,bh,8,'rgba(255,255,255,0.95)','#FFD700',2);
     // Tail
     ctx.fillStyle='rgba(255,255,255,0.95)';
@@ -869,7 +879,9 @@ function drawBoy(bx,by,cx){
     ctx.beginPath();ctx.moveTo(bubble_x+bw-10,bubble_y+bh);ctx.lineTo(bubble_x+bw-5,bubble_y+bh+12);ctx.stroke();
     ctx.beginPath();ctx.moveTo(bubble_x+bw-20,bubble_y+bh);ctx.lineTo(bubble_x+bw-5,bubble_y+bh+12);ctx.stroke();
     ctx.fillStyle='#C0392B';ctx.font='bold 11px sans-serif';ctx.textAlign='center';
-    ctx.fillText('🎂 ¡Feliz cumple!',bubble_x+bw/2,bubble_y+19);
+    ctx.fillText('🎂 ¡Feliz 14 años!',bubble_x+bw/2,bubble_y+11);
+    ctx.fillStyle='#333';ctx.font='bold 9px sans-serif';
+    ctx.fillText('juntos y muy feliz cumpleaños!',bubble_x+bw/2,bubble_y+24);
     ctx.textAlign='left';
   }
 
@@ -1165,6 +1177,33 @@ window.addEventListener('keyup',e=>{
   if(e.code==='ArrowUp'||e.code==='KeyZ'||e.code==='Space') keys.jump=false;
 });
 document.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
+// ── Landscape / fullscreen for mobile ────────────────────────────────────────
+function toggleLandscape(){
+  const el = document.documentElement;
+  // Try screen orientation API first (Android Chrome)
+  if(screen.orientation && screen.orientation.lock){
+    screen.orientation.lock('landscape').catch(()=>{});
+  }
+  // Try fullscreen
+  if(el.requestFullscreen){
+    if(document.fullscreenElement){
+      document.exitFullscreen();
+    } else {
+      el.requestFullscreen().catch(()=>{});
+    }
+  } else if(el.webkitRequestFullscreen){
+    el.webkitRequestFullscreen();
+  }
+}
+
+// Update button label based on fullscreen state
+document.addEventListener('fullscreenchange', ()=>{
+  const btn = document.getElementById('btnLandscape');
+  if(btn){
+    btn.textContent = document.fullscreenElement ? '📱 Salir horizontal' : '📱 Modo horizontal';
+  }
+});
+
 (function loop(){update();render();requestAnimationFrame(loop);})();
 </script>
 </body>
